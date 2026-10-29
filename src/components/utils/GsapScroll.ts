@@ -96,7 +96,19 @@ export function setCharTimeline(
         .fromTo(
           monitor.position,
           { y: -10, z: 2 },
-          { y: 0, z: 0, delay: 1.5, duration: 3 },
+          { y: 0, z: 0, duration: 1.4 },
+          0
+        )
+        .fromTo(
+          monitor.material,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.4 },
+          0
+        )
+        .fromTo(
+          screenLight.material,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.4 },
           0
         )
         .fromTo(
@@ -107,13 +119,14 @@ export function setCharTimeline(
         );
 
       tl3
-        .to(monitor.material, { opacity: 1, duration: 0.6 }, 0)
-        .to(screenLight.material, { opacity: 1, duration: 0.6 }, 0.15)
         .fromTo(".whatIDO", { y: 0 }, { y: "15%", duration: 2 }, 0)
         .to(character.rotation, { x: -0.04, duration: 2, delay: 1 }, 0);
     }
   } else {
     if (character) {
+      if (monitor?.material) monitor.material.opacity = 1;
+      if (screenLight?.material) screenLight.material.opacity = 1;
+
       const tM2 = gsap.timeline({
         scrollTrigger: {
           trigger: ".what-box-in",
