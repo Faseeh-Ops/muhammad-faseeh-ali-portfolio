@@ -18,7 +18,11 @@ const MainContainer = ({ children }: PropsWithChildren) => {
   );
   const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 768);
   const [shouldRenderCharacter, setShouldRenderCharacter] = useState(false);
-  const [isCharacterVisible, setIsCharacterVisible] = useState(false);
+  // Keep the character visible through the introduction and About sections.
+  // It should still leave the screen once the portfolio moves past What I Do.
+  const [isCharacterVisible, setIsCharacterVisible] = useState(
+    window.innerWidth > 768
+  );
 
   useEffect(() => {
     const resizeHandler = () => {
@@ -34,25 +38,41 @@ const MainContainer = ({ children }: PropsWithChildren) => {
   }, []);
 
   useEffect(() => {
-    const whatIDo = document.querySelector(".whatIDO");
-    if (!whatIDo) return;
+    const characterSections = document.querySelectorAll(
+      ".landing-section, .about-section, .whatIDO"
+    );
+    if (!characterSections.length) return;
 
     let observer: IntersectionObserver | undefined;
+    const sectionVisibility = new Map<Element, boolean>();
     const observeWhatIDo = () => {
       observer?.disconnect();
+      sectionVisibility.clear();
       const centerMargin = Math.min(180, Math.round(window.innerHeight * 0.2));
       observer = new IntersectionObserver(
-        ([entry]) => {
-          const isVisible = entry.isIntersecting;
+        (entries) => {
+          entries.forEach((entry) => {
+            sectionVisibility.set(entry.target, entry.isIntersecting);
+          });
+          const visibleSections = [...sectionVisibility.entries()];
+          const isVisible = visibleSections.some(
+            ([section, visible]) =>
+              visible && (!isMobile || section.matches(".whatIDO"))
+          );
           setIsCharacterVisible(isVisible);
-          if (isMobile && isVisible) setShouldRenderCharacter(true);
+          const isWhatIDoVisible = visibleSections.some(
+            ([section, visible]) => visible && section.matches(".whatIDO")
+          );
+          if (isMobile && isWhatIDoVisible) {
+            setShouldRenderCharacter(true);
+          }
         },
         {
           rootMargin: `-${centerMargin}px 0px -${centerMargin}px 0px`,
           threshold: 0,
         }
       );
-      observer.observe(whatIDo);
+      characterSections.forEach((section) => observer?.observe(section));
     };
 
     observeWhatIDo();

@@ -40,12 +40,15 @@ export function setCharTimeline(
   character?.children.forEach((object: any) => {
     if (object.name === "Plane004") {
       object.children.forEach((child: any) => {
-        child.material.transparent = true;
-        child.material.opacity = 0;
         if (child.material.name === "Material.027") {
+          // This material can be shared by other meshes in the GLB. Give the
+          // monitor its own copy so its reveal never fades the character.
+          child.material = child.material.clone();
           monitor = child;
           child.material.color.set("#FFFFFF");
         }
+        child.material.transparent = true;
+        child.material.opacity = 0;
       });
     }
     if (object.name === "screenlight") {
@@ -100,6 +103,14 @@ export function setCharTimeline(
           0
         )
         .fromTo(
+          ".character-rim",
+          { opacity: 1, scaleX: 1.4 },
+          { opacity: 0, scale: 0, y: "-70%", duration: 5, delay: 2 },
+          0.3
+        );
+
+      tl3
+        .fromTo(
           monitor.material,
           { opacity: 0 },
           { opacity: 1, duration: 0.4 },
@@ -111,14 +122,6 @@ export function setCharTimeline(
           { opacity: 1, duration: 0.4 },
           0
         )
-        .fromTo(
-          ".character-rim",
-          { opacity: 1, scaleX: 1.4 },
-          { opacity: 0, scale: 0, y: "-70%", duration: 5, delay: 2 },
-          0.3
-        );
-
-      tl3
         .fromTo(".whatIDO", { y: 0 }, { y: "15%", duration: 2 }, 0)
         .to(character.rotation, { x: -0.04, duration: 2, delay: 1 }, 0);
     }
