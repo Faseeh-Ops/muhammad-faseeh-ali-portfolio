@@ -35,32 +35,32 @@ const MainContainer = ({ children }: PropsWithChildren) => {
 
   useEffect(() => {
     const whatIDo = document.querySelector(".whatIDO");
-    const sections = (isMobile
-      ? [whatIDo]
-      : [
-          document.getElementById("landingDiv"),
-          document.getElementById("about"),
-          whatIDo,
-        ]
-    ).filter((section): section is Element => section !== null);
-    if (!sections.length) return;
+    if (!whatIDo) return;
 
-    const visibleSections = new Map<Element, boolean>();
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const isVisible = entry.isIntersecting && entry.intersectionRatio >= 0.05;
-          visibleSections.set(entry.target, isVisible);
-          if (isMobile && entry.target === whatIDo && isVisible) {
-            setShouldRenderCharacter(true);
-          }
-        });
-        setIsCharacterVisible([...visibleSections.values()].some(Boolean));
-      },
-      { threshold: 0.05 }
-    );
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
+    let observer: IntersectionObserver | undefined;
+    const observeWhatIDo = () => {
+      observer?.disconnect();
+      const centerMargin = Math.min(180, Math.round(window.innerHeight * 0.2));
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          const isVisible = entry.isIntersecting;
+          setIsCharacterVisible(isVisible);
+          if (isMobile && isVisible) setShouldRenderCharacter(true);
+        },
+        {
+          rootMargin: `-${centerMargin}px 0px -${centerMargin}px 0px`,
+          threshold: 0,
+        }
+      );
+      observer.observe(whatIDo);
+    };
+
+    observeWhatIDo();
+    window.addEventListener("resize", observeWhatIDo);
+    return () => {
+      window.removeEventListener("resize", observeWhatIDo);
+      observer?.disconnect();
+    };
   }, [isMobile]);
 
   useEffect(() => {

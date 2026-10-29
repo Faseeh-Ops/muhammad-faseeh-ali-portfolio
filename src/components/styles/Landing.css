@@ -516,6 +516,18 @@ h2.landing-info-h2 {
   }
 }
 
+@media screen and (min-width: 1025px) {
+  .container-main.character-visible .character-model {
+    left: 43%;
+    opacity: 0.78;
+  }
+
+  .container-main.character-visible .character-model canvas {
+    transform: scale(0.82);
+    transform-origin: center;
+  }
+}
+
 @media screen and (min-width: 1200px) {
   .landing-intro {
     top: 40%;
