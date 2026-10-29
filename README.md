@@ -2,6 +2,8 @@
 
 An interactive portfolio for **Muhammad Faseeh Ali**, an AI Engineer and Full-Stack Developer based in Lahore, Pakistan.
 
+**Live site:** [muhammad-faseeh-ali-portfolio.vercel.app](https://muhammad-faseeh-ali-portfolio.vercel.app/)
+
 ## Landing page
 
 ![Landing page greeting Muhammad Faseeh Ali](./screenshots/landing-page.png)
