@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" fill="none">
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#071d23"/><stop offset="1" stop-color="#15524b"/></linearGradient><linearGradient id="gold" x2="1" y2="1"><stop stop-color="#ffe7a1"/><stop offset="1" stop-color="#c89c4a"/></linearGradient></defs>
+  <rect width="1200" height="760" rx="36" fill="url(#bg)"/><circle cx="975" cy="120" r="210" fill="#90d8b2" opacity=".12"/><circle cx="1090" cy="620" r="270" fill="#e0c16d" opacity=".08"/>
+  <path d="M600 118l18 36 40 6-29 28 7 40-36-19-36 19 7-40-29-28 40-6 18-36z" fill="url(#gold)" opacity=".9"/><path d="M478 289c77-42 167-42 244 0v285c-77-42-167-42-244 0V289z" fill="#f8f2df"/><path d="M722 289c77-42 167-42 244 0v285c-77-42-167-42-244 0V289z" fill="#ebe2ca"/><path d="M722 289v285" stroke="#c49a50" stroke-width="8"/>
+  <g stroke="#7f9b83" stroke-width="5" opacity=".7"><path d="M514 338h169M514 377h169M514 416h169M514 455h169M514 494h169M761 338h169M761 377h169M761 416h169M761 455h169M761 494h169"/></g><path d="M478 289c77-42 167-42 244 0 77-42 167-42 244 0v285c-77-42-167-42-244 0-77-42-167-42-244 0V289z" stroke="url(#gold)" stroke-width="10"/>
+  <text x="600" y="650" fill="#f2e8c8" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" letter-spacing="6">QURAN AI</text>
+</svg>

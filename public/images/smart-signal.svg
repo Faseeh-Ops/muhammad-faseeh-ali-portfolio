@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" fill="none">
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#101827"/><stop offset="1" stop-color="#153d50"/></linearGradient><linearGradient id="road" x2="1"><stop stop-color="#25394a"/><stop offset="1" stop-color="#34445a"/></linearGradient></defs>
+  <rect width="1200" height="760" rx="36" fill="url(#bg)"/><path d="M0 570h1200v190H0z" fill="url(#road)"/><path d="M555 570h90v190h-90z" fill="#e8e5d5" opacity=".75"/><path d="M0 655h1200" stroke="#f2cf76" stroke-width="8" stroke-dasharray="56 44" opacity=".75"/>
+  <path d="M593 186v384" stroke="#c6d1df" stroke-width="20"/><rect x="516" y="120" width="154" height="318" rx="42" fill="#192532" stroke="#d4e3ef" stroke-width="8"/><circle cx="593" cy="188" r="38" fill="#ff6571"/><circle cx="593" cy="278" r="38" fill="#ffd166"/><circle cx="593" cy="368" r="38" fill="#64e6b0"/><path d="M562 571h62l70 80H492l70-80z" fill="#172430"/>
+  <path d="M430 192c-48 48-48 126 0 174M756 192c48 48 48 126 0 174M364 142c-76 77-76 197 0 274M822 142c76 77 76 197 0 274" stroke="#69ddc1" stroke-width="10" stroke-linecap="round" opacity=".75"/><circle cx="593" cy="278" r="180" stroke="#69ddc1" stroke-width="2" stroke-dasharray="7 12" opacity=".25"/>
+  <text x="600" y="710" fill="#dce7f1" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" letter-spacing="7">SMART SIGNAL</text>
+</svg>
