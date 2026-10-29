@@ -523,7 +523,7 @@ h2.landing-info-h2 {
   }
 
   .container-main.character-visible .character-model canvas {
-    transform: none;
+    transform: scale(1.25);
     transform-origin: center;
   }
 }
