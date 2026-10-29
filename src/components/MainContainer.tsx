@@ -16,14 +16,15 @@ const MainContainer = ({ children }: PropsWithChildren) => {
   const [isDesktopView, setIsDesktopView] = useState<boolean>(
     window.innerWidth > 1024
   );
-  const [isMobile] = useState<boolean>(window.innerWidth <= 768);
+  const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 768);
   const [shouldRenderCharacter, setShouldRenderCharacter] = useState(false);
-  const [isCharacterVisible, setIsCharacterVisible] = useState(true);
+  const [isCharacterVisible, setIsCharacterVisible] = useState(false);
 
   useEffect(() => {
     const resizeHandler = () => {
       setSplitText();
       setIsDesktopView(window.innerWidth > 1024);
+      setIsMobile(window.innerWidth <= 768);
     };
     resizeHandler();
     window.addEventListener("resize", resizeHandler);
@@ -33,21 +34,26 @@ const MainContainer = ({ children }: PropsWithChildren) => {
   }, []);
 
   useEffect(() => {
-    const sections = [
-      document.getElementById("landingDiv"),
-      document.getElementById("about"),
-      document.querySelector(".whatIDO"),
-    ].filter((section): section is Element => section !== null);
+    const whatIDo = document.querySelector(".whatIDO");
+    const sections = (isMobile
+      ? [whatIDo]
+      : [
+          document.getElementById("landingDiv"),
+          document.getElementById("about"),
+          whatIDo,
+        ]
+    ).filter((section): section is Element => section !== null);
     if (!sections.length) return;
 
     const visibleSections = new Map<Element, boolean>();
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          visibleSections.set(
-            entry.target,
-            entry.isIntersecting && entry.intersectionRatio >= 0.05
-          );
+          const isVisible = entry.isIntersecting && entry.intersectionRatio >= 0.05;
+          visibleSections.set(entry.target, isVisible);
+          if (isMobile && entry.target === whatIDo && isVisible) {
+            setShouldRenderCharacter(true);
+          }
         });
         setIsCharacterVisible([...visibleSections.values()].some(Boolean));
       },
@@ -55,20 +61,20 @@ const MainContainer = ({ children }: PropsWithChildren) => {
     );
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
-  }, []);
+  }, [isMobile]);
 
   useEffect(() => {
-    if (window.innerWidth <= 1024) return;
-
-    setShouldRenderCharacter(true);
-  }, []);
+    if (isDesktopView) {
+      setShouldRenderCharacter(true);
+    }
+  }, [isDesktopView]);
 
   return (
     <div className={`container-main ${isCharacterVisible ? "character-visible" : ""}`}>
       <Cursor />
       <Navbar />
       <SocialIcons />
-      {isDesktopView && !isMobile && shouldRenderCharacter && children}
+      {(isDesktopView || isMobile) && shouldRenderCharacter && children}
       <div className="container-main">
         <Landing />
         <About />

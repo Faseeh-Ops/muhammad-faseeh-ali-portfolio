@@ -3,12 +3,8 @@
   display: none;
 }
 
-/* Remove mobile photo and ensure 3D character is always hidden on mobile */
+/* Keep the 3D character unloaded visually until its section is in view. */
 @media only screen and (max-width: 768px) {
-  .character-model {
-    display: none !important;
-  }
-
   .landing-section,
   .landing-container {
     height: auto !important;
@@ -662,5 +658,35 @@ h2.landing-info-h2 {
     text-align: center;
     white-space: normal;
     overflow-wrap: anywhere;
+  }
+
+  .character-container {
+    pointer-events: none;
+  }
+
+  .character-model::before,
+  .character-model::after {
+    display: none !important;
+  }
+
+  .character-model {
+    display: block !important;
+    position: fixed !important;
+    top: auto !important;
+    left: 50% !important;
+    bottom: -6svh !important;
+    width: min(100vw, 460px) !important;
+    height: 54svh !important;
+    max-height: 500px !important;
+    transform: translateX(-50%) !important;
+    z-index: 2 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  .container-main.character-visible .character-model {
+    opacity: 0.42 !important;
+    visibility: visible !important;
   }
 }
