@@ -518,7 +518,7 @@ h2.landing-info-h2 {
 
 @media screen and (min-width: 1025px) {
   .container-main.character-visible .character-model {
-    left: 43%;
+    left: 50%;
     opacity: 0.78;
   }
 
