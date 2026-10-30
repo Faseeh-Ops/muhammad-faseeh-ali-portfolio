@@ -109,19 +109,30 @@ export function setCharTimeline(
           0.3
         );
 
-      tl3
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: ".whatIDO",
+            start: "top 85%",
+            end: "top 55%",
+            scrub: true,
+            invalidateOnRefresh: true,
+          },
+        })
         .fromTo(
           monitor.material,
           { opacity: 0 },
-          { opacity: 1, duration: 0.4 },
+          { opacity: 1, duration: 1 },
           0
         )
         .fromTo(
           screenLight.material,
           { opacity: 0 },
-          { opacity: 1, duration: 0.4 },
+          { opacity: 1, duration: 1 },
           0
-        )
+        );
+
+      tl3
         .fromTo(".whatIDO", { y: 0 }, { y: "15%", duration: 2 }, 0)
         .to(character.rotation, { x: -0.04, duration: 2, delay: 1 }, 0);
     }
